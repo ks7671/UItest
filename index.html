@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8" />
+  <title>センサーデータグラフ</title>
+  <style>
+    body {
+      font-family: sans-serif;
+      background-color: #f9f9f9;
+      padding: 20px;
+    }
+
+    .controls, .color-controls, .range-controls {
+      margin-bottom: 15px;
+    }
+
+    .chart-container {
+      position: relative;
+      width: fit-content;
+      margin-top: 20px;
+    }
+
+    canvas {
+      background-color: white;
+      display: block;
+    }
+
+    .y-axis-top, .y-axis-bottom, .y2-axis-top, .y2-axis-bottom {
+      position: absolute;
+      width: 60px;
+      font-size: 12px;
+      text-align: center;
+    }
+
+    .y-axis-top   { top: 0px; left: 0; }
+    .y-axis-bottom{ bottom: 0px; left: 0; }
+    .y2-axis-top  { top: 0px; right: 0px; }
+    .y2-axis-bottom{ bottom: 0px; right: 0px; }
+  </style>
+</head>
+<body>
+
+  <h2>センサーデータ</h2>
+
+  <div class="controls">
+    <label>温度: 
+      <select id="axis_temp">
+        <option value="y">左</option>
+        <option value="y2">右</option>
+      </select>
+    </label>
+    <label>湿度: 
+      <select id="axis_hum">
+        <option value="y">左</option>
+        <option value="y2">右</option>
+      </select>
+    </label>
+    <label>CO₂: 
+      <select id="axis_co2">
+        <option value="y">左</option>
+        <option value="y2">右</option>
+      </select>
+    </label>
+    <button onclick="applyYAxisSelection()">Y軸を反映</button>
+  </div>
+
+  <div class="color-controls">
+    温度色: <input type="color" id="tempColor" value="#ff0000">
+    湿度色: <input type="color" id="humiColor" value="#0000ff">
+    CO₂色: <input type="color" id="co2Color" value="#00aa00">
+  </div>
+
+  <div class="range-controls">
+    <label>開始日時: <input type="datetime-local" id="startDate"></label>
+    <label>終了日時: <input type="datetime-local" id="endDate"></label>
+    <button onclick="applyDateRange()">期間を適用</button>
+    <br><br>
+    <label>直近 <input type="number" id="recentDays" value="3" min="1" style="width: 50px;"> 日間</label>
+    <button onclick="applyRecentDays()">表示</button>
+  </div>
+
+  <div class="chart-container">
+    <input id="yMax" class="y-axis-top" placeholder="最大">
+    <input id="yMin" class="y-axis-bottom" placeholder="最小">
+    <input id="y2Max" class="y2-axis-top" placeholder="最大">
+    <input id="y2Min" class="y2-axis-bottom" placeholder="最小">
+    <canvas id="myChart" width="800" height="300"></canvas>
+  </div>
+
+</body>
+
+<script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.1/dist/chart.umd.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/luxon@3/build/global/luxon.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/chartjs-adapter-luxon@1.3.1/dist/chartjs-adapter-luxon.umd.min.js"></script>
+<script src="script.js"></script>
+
+
+</html>
